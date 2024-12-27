@@ -9,7 +9,7 @@
 
 <body>
     <?php
-    $pass = "huanta76585625";
+    $pass = "huanta2024";
     $pass_secure = password_hash($pass, PASSWORD_DEFAULT);
     echo $pass_secure;
     

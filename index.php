@@ -1,35 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="utf-8" />
-    <title> Xeloro - Admin & Dashboard Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="MyraStudio" name="author" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="plantilla/Admin/vertical/assets/images/favicon.ico">
-
-    <!-- App css -->
-    <link href="plantilla/Admin/vertical/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="plantilla/Admin/vertical/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="plantilla/Admin/vertical/assets/css/theme.min.css" rel="stylesheet" type="text/css" />
-
-</head>
-
-<body>
-
-    <!-- Begin page -->
-    <div id="layout-wrapper">
-        <div class="header-border"></div>
-
         <?php
-        include("include/menu.php");
+        get_header();
         ?>
-
-
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
@@ -49,13 +20,13 @@
                                         </ol>
                                         <div class="carousel-inner" role="listbox">
                                             <div class="carousel-item active">
-                                                <img class="d-block img-fluid" src="images/banner.png" alt="First slide">
+                                                <img class="d-block img-fluid" src="<?php bloginfo('template_url'); ?>/images/banner.png" alt="First slide">
                                             </div>
                                             <div class="carousel-item">
-                                                <img class="d-block img-fluid" src="images/banner.png" alt="Second slide">
+                                                <img class="d-block img-fluid" src="<?php bloginfo('template_url'); ?>/images/banner.png" alt="Second slide">
                                             </div>
                                             <div class="carousel-item">
-                                                <img class="d-block img-fluid" src="images/banner.png" alt="Third slide">
+                                                <img class="d-block img-fluid" src="<?php bloginfo('template_url'); ?>/images/banner.png" alt="Third slide">
                                             </div>
                                         </div>
                                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -76,20 +47,31 @@
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
                                 <div class="container-fluid row">
-                                    <?php for ($i = 0; $i < 10; $i++) {
+                                    <?php 
+                                    if ( have_posts() ) :
+                                        while ( have_posts() ) : the_post();
                                     ?>
                                         <div class="col-lg-2 col-md-3 col-sm-6">
                                             <div class="card">
-                                                <img class="card-img-top img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Pump_bringback_weiss.jpg" alt="">
+                                                <a href="<?php the_permalink(); ?>"><?php 
+                                                if ( has_post_thumbnail() ) {
+                                                    the_post_thumbnail( 'thumbnail', array( 'class' => 'card-img-top img-fluid' ) );
+                                                }
+                                                ?></a>
                                                 <div class="card-body">
-                                                    <h5 class="card-title">Titulo</h5>
+                                                    <h5 class="card-title"><?php the_title(); ?></h5>
                                                     <p class="card-text">
-                                                        Descripcion
+                                                        <?php the_excerpt(); ?>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php } ?>
+                                    <?php 
+                                    endwhile;
+                                    else :
+                                        _e( 'No se encontraron productos en la categoría seleccionada', 'textdomain' );
+                                    endif;
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -101,28 +83,5 @@
             <!-- End Page-content -->
 
             <?php
-            include("include/pie_pagina.php");
+            get_footer();
             ?>
-        </div>
-        <!-- end main content-->
-
-    </div>
-    <!-- END layout-wrapper -->
-
-    <!-- Overlay-->
-    <div class="menu-overlay"></div>
-
-
-    <!-- jQuery  -->
-    <script src="plantilla/Admin/vertical/assets/js/jquery.min.js"></script>
-    <script src="plantilla/Admin/vertical/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="plantilla/Admin/vertical/assets/js/metismenu.min.js"></script>
-    <script src="plantilla/Admin/vertical/assets/js/waves.js"></script>
-    <script src="plantilla/Admin/vertical/assets/js/simplebar.min.js"></script>
-
-    <!-- App js -->
-    <script src="plantilla/Admin/vertical/assets/js/theme.js"></script>
-
-</body>
-
-</html>
